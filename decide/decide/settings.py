@@ -84,10 +84,18 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'decide.urls'
 
+AUTH_TEMPLATE_PATH = os.path.join(BASE_DIR, 'authentication')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+
+        'DIRS': [
+		AUTH_TEMPLATE_PATH
+	],
+
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
