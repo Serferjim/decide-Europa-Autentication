@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'axes',
     'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
@@ -52,6 +53,7 @@ REST_FRAMEWORK = {
 }
 
 AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesModelBackend',
     'base.backends.AuthBackend',
 ]
 
@@ -87,8 +89,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-		AUTH_TEMPLATE_PATH
-	],
+            AUTH_TEMPLATE_PATH,
+            os.path.join(BASE_DIR, 'templates')
+        ],
 
         'APP_DIRS': True,
         'OPTIONS': {
@@ -154,9 +157,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+AXES_CACHE = 'axes_cache'
+
+AXES_COOLOFF_TIME = 0.001666667
 
 # number of bits for the key, all auths should use the same number of bits
 KEYBITS = 256
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+    'axes_cache': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
 
 try:
     from local_settings import *
