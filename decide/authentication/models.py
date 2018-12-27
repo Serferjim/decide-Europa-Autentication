@@ -9,9 +9,12 @@ class UserDecide(models.Model):
     email = models.EmailField()
     user = models.OneToOneField(User, on_delete = models.CASCADE)
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 class TwoStepsAuth(models.Model):
     code = models.CharField(max_length = 192, unique = True)
     user = models.OneToOneField(User, on_delete = models.CASCADE, unique = True)
+=======
+>>>>>>> parent of 547151a... Navegabilidad impleentada
 =======
 >>>>>>> parent of 547151a... Navegabilidad impleentada
