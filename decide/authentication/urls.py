@@ -11,7 +11,7 @@ urlpatterns = [
     path('getuser/', GetUserView.as_view()),
     path('register/', RegisterUserView.as_view(), name = 'register'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home')
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('request-auth-email-code/', RequestAuthEmailCodeView.as_view()),
     path('login-auth-email/', LoginEmailCodeView.as_view()),
     path('prueba/', RegisterUserView.as_view()),
