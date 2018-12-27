@@ -6,17 +6,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.views.generic.edit import FormView
-<<<<<<< HEAD
+
 from .forms import UserDecideForm
 from .forms import UserDecideForm, RequestAuthEmailForm, LoginAuthEmailForm
 from .models import UserDecide, TwoStepsAuth
-=======
+
 from authentication.forms import UserDecideForm
 from authentication.models import UserDecide
-<<<<<<< HEAD
->>>>>>> parent of 547151a... Navegabilidad impleentada
-=======
->>>>>>> parent of 547151a... Navegabilidad impleentada
+
 from django.db import transaction
 from django.http import HttpResponse
 from django.views import View
@@ -63,7 +60,7 @@ class RegisterUserView(FormView):
             user = user
         )
         userDecide.save()
-<<<<<<< HEAD
+
         return HttpResponse()
 
 class RequestAuthEmailCodeView(FormView):
@@ -88,8 +85,6 @@ class LoginEmailCodeView(FormView):
     def form_valid(self, form):
         email = form.cleaned_data['email']
         code = form.cleaned_data['code']
-=======
->>>>>>> parent of 547151a... Navegabilidad impleentada
         return HttpResponse()
 
 class LogoutView(APIView):
