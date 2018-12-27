@@ -2,10 +2,10 @@ from django.test import TestCase
 
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
-from authentication.services import send_mail_2_steps_auth, login_email_auth
-from authentication.models import TwoStepsAuth
+from .services import send_mail_2_steps_auth, login_email_auth
+from .models import TwoStepsAuth
 
-from authentication.exceptions import IllegalArgumentException
+from .exceptions import IllegalArgumentException
 from django.core.exceptions import ObjectDoesNotExist
 
 class LoginEmailTestCase(TestCase):
