@@ -33,7 +33,7 @@ class LoginEmailTestCase(TestCase):
             two_steps_auth = send_mail_2_steps_auth(email)
         except ObjectDoesNotExist:
             res = True
-        self.assertEqual(res, True)
+            self.assertEqual(res, True)
 
     # Se pide un código estando el ususario ya autenticado
     def test_send_mail_2_steps_auth_user_already_authenticated(self):
