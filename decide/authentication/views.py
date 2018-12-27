@@ -6,15 +6,15 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.views.generic.edit import FormView
-from authentication.forms import UserDecideForm
-from authentication.forms import UserDecideForm, RequestAuthEmailForm, LoginAuthEmailForm
-from authentication.models import UserDecide, TwoStepsAuth
+from .forms import UserDecideForm
+from .forms import UserDecideForm, RequestAuthEmailForm, LoginAuthEmailForm
+from .models import UserDecide, TwoStepsAuth
 from django.db import transaction
 from django.http import HttpResponse
 from django import forms
 from django.views import View
 from django.core.mail import send_mail
-from authentication.services import send_mail_2_steps_auth, login_email_auth
+from .services import send_mail_2_steps_auth, login_email_auth
 import _random as random
 import _string as string
 from django.shortcuts import render
@@ -93,7 +93,6 @@ class LoginEmailCodeView(FormView):
     def form_valid(self, form):
         email = form.cleaned_data['email']
         code = form.cleaned_data['code']
-        login_email_auth(email)
         return HttpResponse()
 
 class LogoutView(APIView):

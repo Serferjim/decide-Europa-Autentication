@@ -2,11 +2,11 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.db import IntegrityError
-from authentication.models import TwoStepsAuth
+from .models import TwoStepsAuth
 from django.core.exceptions import ObjectDoesNotExist
 from Crypto import Random
 from rest_framework.authtoken.models import Token
-from authentication.exceptions import IllegalArgumentException
+from .exceptions import IllegalArgumentException
 
 def send_mail_2_steps_auth(email):
     u = check_if_user_exists_email(email)
