@@ -6,12 +6,16 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.views.generic.edit import FormView
+<<<<<<< HEAD
 from .forms import UserDecideForm
 from .forms import UserDecideForm, RequestAuthEmailForm, LoginAuthEmailForm
 from .models import UserDecide, TwoStepsAuth
+=======
+from authentication.forms import UserDecideForm
+from authentication.models import UserDecide
+>>>>>>> parent of 547151a... Navegabilidad impleentada
 from django.db import transaction
 from django.http import HttpResponse
-from django import forms
 from django.views import View
 from django.core.mail import send_mail
 from .services import send_mail_2_steps_auth, login_email_auth
@@ -41,26 +45,6 @@ class RegisterUserView(FormView):
         email = form.cleaned_data['email']
         first_name = form.cleaned_data['first_name']
         last_name = form.cleaned_data['last_name']
-        if not username:
-            raise forms.ValidationError("The username is blank",
-                                        code='username_blank'
-            )
-        if not password:
-            raise forms.ValidationError("The password is blank",
-                                        code='password_blank'
-                                        )
-        if not first_name:
-            raise forms.ValidationError("The first name is blank",
-                                        code='first_name_blank'
-                                        )
-        if not last_name:
-            raise forms.ValidationError("The last name is blank",
-                                        code='last_name_blank'
-                                        )
-        if not email:
-            raise forms.ValidationError("The email is blank",
-                                        code='email_blank'
-                                        )
         user = User(
             username = username,
             password = password,
@@ -69,6 +53,13 @@ class RegisterUserView(FormView):
             last_name = last_name
         )
         user.save()
+        userDecide = UserDecide(
+            first_name = first_name,
+            last_name = last_name,
+            email = email,
+            user = user
+        )
+        userDecide.save()
         return HttpResponse()
 
 class RequestAuthEmailCodeView(FormView):
