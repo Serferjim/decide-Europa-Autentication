@@ -56,11 +56,7 @@ REST_FRAMEWORK = {
 AUTHENTICATION_BACKENDS = [
     'axes.backends.AxesModelBackend',
     'base.backends.AuthBackend',
-<<<<<<< HEAD
-=======
-    'axes.backends.AxesModelBackend',
     'django.contrib.auth.backends.ModelBackend',
->>>>>>> e060282e6a362c5bc14278b25503bffa76fe3c94
 ]
 
 MODULES = [
@@ -95,17 +91,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-<<<<<<< HEAD
             AUTH_TEMPLATE_PATH,
             os.path.join(BASE_DIR, 'templates')
         ],
-
-=======
-		AUTH_TEMPLATE_PATH
-	],
-
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
->>>>>>> e060282e6a362c5bc14278b25503bffa76fe3c94
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,8 +107,6 @@ TEMPLATES = [
 ]
 
 
-<<<<<<< HEAD
-=======
 #   new lock out fail attends
 CACHES = {
     'default': {
@@ -135,7 +121,6 @@ AXES_CACHE = 'axes_cache'
 AXES_CACHE_LIMIT = 4
 AXES_COOLOFF_TIME = 0.005
 
->>>>>>> e060282e6a362c5bc14278b25503bffa76fe3c94
 WSGI_APPLICATION = 'decide.wsgi.application'
 
 
@@ -195,7 +180,6 @@ AXES_COOLOFF_TIME = 0.001666667
 
 # number of bits for the key, all auths should use the same number of bits
 KEYBITS = 256
-<<<<<<< HEAD
 
 CACHES = {
     'default': {
@@ -206,9 +190,8 @@ CACHES = {
     }
 }
 
-=======
 APIS = {}
->>>>>>> e060282e6a362c5bc14278b25503bffa76fe3c94
+
 try:
     from local_settings import *
 except ImportError:
