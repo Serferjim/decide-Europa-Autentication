@@ -1,0 +1,7 @@
+email = email@dominio.es
+password = 1234asdf
+email = email@dominio.es2
+password = 1234asdf2
+email = email@dominio.es3
+password = 1234asdf3
+

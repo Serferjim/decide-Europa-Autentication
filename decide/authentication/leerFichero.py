@@ -1,13 +1,18 @@
-
+#Los emails se escriben en las líneas pares y el pass en las impares
+#Por norma, el primer email y pass es el de decide-europa
 def ficheroCorreoContraseña():
-    with open("properties.txt") as f:
+    emails = []
+    passwords = []
+    with open("emails.txt") as f:
         lines = f.readlines()
-        email = (lines[0].split(" = "))[1]
-        passw = (lines[1].split(" = "))[1]
-
+        for i in range (len(lines)-1):
+            data = (lines[i].split(" = "))[1]
+            if(i%2 == 0):
+                emails.append(data)
+            else:
+                passwords.append(data)
     f.close()
-    print(email,passw)
-    return (email, passw);
+    return (emails, passwords);
 
 
 if __name__ == '__main__':
