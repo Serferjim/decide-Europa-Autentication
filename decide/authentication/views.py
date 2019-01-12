@@ -135,7 +135,6 @@ class LogoutSessionView(TemplateView):
     def get(self, request):
         check_user_status_view(request, list_status_allowed = ['ACTIVE'], unauthenticated_allowed = True)
         session_token = request.session.get('token')
-        print(request.session.get_expire_at_browser_close())
         try:
             Token.objects.get(key = session_token).delete()
         except ObjectDoesNotExist:
