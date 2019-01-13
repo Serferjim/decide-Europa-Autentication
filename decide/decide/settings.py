@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
+    'bootstrap4',
     'axes',
 ]
 
@@ -71,9 +71,7 @@ MODULES = [
     'voting',
 ]
 
-
-BASEURL = 'https://decide-europa-authentication.herokuapp.com/'
-
+BASEURL = 'http://localhost:8000'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -92,12 +90,11 @@ AUTH_TEMPLATE_PATH = os.path.join(BASE_DIR, 'authentication')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-
         'DIRS': [
-		AUTH_TEMPLATE_PATH
+		AUTH_TEMPLATE_PATH ,
+        os.path.join(BASE_DIR, 'templates')
 	],
 
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -109,16 +106,14 @@ TEMPLATES = [
         },
     },
 ]
-
-
-#   new lock out fail attends
+# new lock out fail attends
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-    },
-    'axes_cache': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-    }
+'default': {
+'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+},
+'axes_cache': {
+'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+}
 }
 
 AXES_CACHE = 'axes_cache'
@@ -127,7 +122,9 @@ AXES_COOLOFF_TIME = 0.005
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
+
 WSGI_APPLICATION = 'decide.wsgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -174,23 +171,26 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
 
 # number of bits for the key, all auths should use the same number of bits
 KEYBITS = 256
 APIS = {}
+
 try:
     from local_settings import *
 except ImportError:
     print("local_settings.py not found")
 
+
 import django_heroku
 django_heroku.settings(locals())
 
 INSTALLED_APPS = INSTALLED_APPS + MODULES
-
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 # import django_heroku
 # django_heroku.settings(locals())
@@ -202,3 +202,15 @@ try:
     django_heroku.settings(locals())
 except ImportError:
     found = False
+
+from decide.leerFichero import ficheroCorreoContrasena
+
+auth_email_data = ficheroCorreoContrasena()
+
+
+# email configuration
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = auth_email_data[0][0]
+EMAIL_HOST_PASSWORD = auth_email_data[1][0]
