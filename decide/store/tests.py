@@ -141,7 +141,29 @@ class StoreTextCase(BaseTestCase):
         votes = response.json()
 
         self.assertEqual(len(votes), Vote.objects.filter(voter_id=v).count())
+'''
+    def test_hasvote(self):
+        votings, voters = self.gen_votes()
+        vo = Vote.objects.first()
+        v = vo.voting_id
+        u = vo.voter_id
 
+        response = self.client.get('/store/?voting_id={}&voter_id={}'.format(v, u), format='json')
+        self.assertEqual(response.status_code, 401)
+
+        self.login(user='noadmin')
+        response = self.client.get('/store/?voting_id={}&voter_id={}'.format(v, u), format='json')
+        self.assertEqual(response.status_code, 403)
+
+        self.login()
+        response = self.client.get('/store/?voting_id={}&voter_id={}'.format(v, u), format='json')
+        self.assertEqual(response.status_code, 200)
+        votes = response.json()
+
+        self.assertEqual(len(votes), 1)
+        self.assertEqual(votes[0]["voting_id"], v)
+        self.assertEqual(votes[0]["voter_id"], u)
+'''
     def test_voting_status(self):
         data = {
             "voting": 5001,
@@ -171,26 +193,3 @@ class StoreTextCase(BaseTestCase):
         self.voting.save()
         response = self.client.post('/store/', data, format='json')
         self.assertEqual(response.status_code, 401)
-'''
-    def test_hasvote(self):
-        votings, voters = self.gen_votes()
-        vo = Vote.objects.first()
-        v = vo.voting_id
-        u = vo.voter_id
-
-        response = self.client.get('/store/?voting_id={}&voter_id={}'.format(v, u), format='json')
-        self.assertEqual(response.status_code, 401)
-
-        self.login(user='noadmin')
-        response = self.client.get('/store/?voting_id={}&voter_id={}'.format(v, u), format='json')
-        self.assertEqual(response.status_code, 403)
-
-        self.login()
-        response = self.client.get('/store/?voting_id={}&voter_id={}'.format(v, u), format='json')
-        self.assertEqual(response.status_code, 200)
-        votes = response.json()
-
-        self.assertEqual(len(votes), 1)
-        self.assertEqual(votes[0]["voting_id"], v)
-        self.assertEqual(votes[0]["voter_id"], u)
-'''
