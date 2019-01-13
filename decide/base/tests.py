@@ -23,6 +23,9 @@ class BaseTestCase(APITestCase):
     def tearDown(self):
         self.client = None
         self.token = None
+
+    def logout(self):
+        self.client.credentials()
 '''
     def login(self, user='admin', password='qwerty'):
         data = {'username': user, 'password': password}
@@ -32,5 +35,3 @@ class BaseTestCase(APITestCase):
         self.assertTrue(self.token)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 '''
-    def logout(self):
-        self.client.credentials()
