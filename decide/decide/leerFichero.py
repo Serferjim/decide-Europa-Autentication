@@ -4,7 +4,7 @@ def ficheroCorreoContrasena():
     emails = []
     passwords = []
     try:
-        with open("emails.txt") as f:
+        with open("decide/emails.txt") as f:
             lines = f.readlines()
             for i in range (len(lines)):
                 data = (lines[i].split(" = "))[1]
@@ -14,7 +14,7 @@ def ficheroCorreoContrasena():
                     passwords.append(data[:-1])
         f.close()
     except FileNotFoundError:
-        with open("emails_dummy.txt") as f:
+        with open("decide/emails_dummy.txt") as f:
             lines = f.readlines()
             for i in range (len(lines)):
                 data = (lines[i].split(" = "))[1]
